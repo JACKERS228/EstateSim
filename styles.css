@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+    --parchment: #f4e4bc;
+    --ink: #2c241a;
+    --stone: #4a4a4a;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1a1a1a;
+    background-image: linear-gradient(rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0.95)), url('Village.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e5e7eb;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.medieval-font {
+    font-family: 'Cinzel', serif;
+}
+
+.parchment-card {
+    background-color: #2a241e;
+    border: 2px solid #3d352a;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem;
+}
+
+.btn-medieval {
+    background: linear-gradient(to bottom, #4a3f35, #2c241a);
+    border: 1px solid #5d5043;
+    transition: all 0.2s ease;
+}
+
+.btn-medieval:hover:not(:disabled) {
+    filter: brightness(1.2);
+    transform: translateY(-1px);
+}
+
+.btn-medieval:active:not(:disabled) {
+    transform: translateY(0px);
+}
+
+.btn-medieval:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+    background: #3d352a;
+    border-radius: 4px;
+}
+
+.hidden { display: none !important; }
+
+.menu-overlay {
+    background: radial-gradient(circle, #2a241e 0%, #1a1a1a 100%);
+}

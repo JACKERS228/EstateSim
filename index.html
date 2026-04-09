@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstateSim Version 0.4a</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="menu-screen" class="fixed inset-0 z-50 flex items-center justify-center menu-overlay">
+        <div class="text-center p-8 parchment-card max-w-lg w-full">
+            <img src="https://i.imgur.com/No4uPKr.jpeg" alt="Estate Logo" class="mx-auto w-48 h-48 object-contain mb-4">
+            <h1 class="medieval-font text-5xl text-yellow-600 mb-2">EstateSim</h1>
+            <p class="text-gray-400 italic mb-8">Establish your legacy.</p>
+            
+            <div class="space-y-4">
+                <label class="block text-left text-xs uppercase text-gray-500 font-bold">Settlement Name</label>
+                <input type="text" id="estate-name-input" 
+                       value="Lockwood Keep" 
+                       class="w-full bg-black/40 border border-yellow-900/40 p-3 rounded text-white focus:outline-none focus:border-yellow-600 mb-6">
+                
+                <button id="btn-start-game" class="w-full py-4 btn-medieval rounded medieval-font text-xl text-yellow-500 tracking-widest">
+                    Begin Reign
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-container" class="max-w-6xl mx-auto hidden">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-yellow-900/30 pb-4">
+            <div class="w-full md:w-1/2 mb-4 md:mb-0">
+                <h1 class="medieval-font text-4xl text-yellow-600 mb-1"><span id="display-estate-name">Estate of Lockwood</span> <span id="tier-display" class="text-2xl text-gray-400">- Homestead</span></h1>
+                <div class="max-w-xs mt-2">
+                    <div class="flex justify-between text-xs text-gray-400 mb-1 uppercase font-bold tracking-wider">
+                        <span>Next Tier Progress</span>
+                        <span id="tier-progress-text">0 / 50</span>
+                    </div>
+                    <div class="progress-bar bg-black/60 border border-yellow-900/30 h-2">
+                        <div id="tier-progress-fill" class="progress-fill bg-yellow-600 shadow-[0_0_10px_rgba(202,138,4,0.5)]"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-3 mt-4 md:mt-0 items-center flex-wrap justify-end">
+                <button id="btn-specs" class="btn-medieval px-3 py-2 rounded text-sm font-bold text-green-500 hidden transition-all flex items-center gap-2 nav-btn" data-target="specs">
+                    <img src="https://i.imgur.com/j1yKYCF.png" alt="Specs" class="w-5 h-5 object-contain"> Specs (<span id="btn-specs-count">0</span>)
+                </button>
+                <button class="btn-medieval px-3 py-2 rounded text-sm font-bold text-blue-400 flex items-center gap-2 nav-btn" data-target="territories">
+                    🗺️ Territories
+                </button>
+                <button class="btn-medieval px-3 py-2 rounded text-sm font-bold text-red-500 flex items-center gap-2 nav-btn" data-target="garrison">
+                    ⚔️ Garrison
+                </button>
+                <button class="btn-medieval px-3 py-2 rounded text-sm font-bold text-yellow-500 flex items-center gap-2 nav-btn" data-target="market">
+                    <img src="https://i.imgur.com/VoqhdTA.png" alt="Market" class="w-5 h-5 object-contain"> Market
+                </button>
+                <div class="flex gap-4 bg-black/40 p-2 rounded-lg border border-yellow-900/20 ml-2">
+                    <div class="text-center">
+                        <span class="block text-xs uppercase text-gray-500">Pop</span>
+                        <span id="pop-display" class="text-lg font-bold text-white">0 / 0</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-xs uppercase text-gray-500">Idle</span>
+                        <span id="idle-display" class="text-lg font-bold text-yellow-500">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex justify-between items-end mb-2">
+            <h2 class="medieval-font text-2xl text-yellow-700">Estate Reserves</h2>
+            <button id="btn-toggle-ribbon" class="btn-medieval px-4 py-1 rounded text-xs font-bold text-gray-300 transition-all">
+                <span id="ribbon-toggle-text">View Crafted Goods</span>
+            </button>
+        </div>
+
+        <div id="ribbon-raw" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+            <div class="parchment-card p-2 flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/Qh5Aevn.png" alt="Wood" class="w-10 h-10 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Wood</span>
+                        <div class="flex items-center gap-1"><span id="res-wood" class="font-bold text-sm">0</span><span id="res-wood-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+                <div class="h-px w-full bg-yellow-900/30 my-1"></div>
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/YOUR_PLANKS_ICON.png" alt="Planks" class="w-6 h-6 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Planks</span>
+                        <div class="flex items-center gap-1"><span id="res-planks" class="font-bold text-sm">0</span><span id="res-planks-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="parchment-card p-2 flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/52EtS1N.png" alt="Stone" class="w-10 h-10 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Stone</span>
+                        <div class="flex items-center gap-1"><span id="res-stone" class="font-bold text-sm">0</span><span id="res-stone-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+                <div class="h-px w-full bg-yellow-900/30 my-1"></div>
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/YOUR_POLISHED_STONE_ICON.png" alt="Polished Stone" class="w-6 h-6 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Cut Stone</span>
+                        <div class="flex items-center gap-1"><span id="res-polished_stone" class="font-bold text-sm">0</span><span id="res-polished_stone-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="parchment-card p-2 flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/HpxMHvI.png" alt="Iron" class="w-10 h-10 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Iron</span>
+                        <div class="flex items-center gap-1"><span id="res-iron" class="font-bold text-sm">0</span><span id="res-iron-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+                <div class="h-px w-full bg-yellow-900/30 my-1"></div>
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/YOUR_NAILS_ICON.png" alt="Nails" class="w-6 h-6 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Nails</span>
+                        <div class="flex items-center gap-1"><span id="res-nails" class="font-bold text-sm">0</span><span id="res-nails-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="parchment-card p-2 flex flex-col gap-1 text-yellow-500">
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/YZqvQ3P.png" alt="Gold" class="w-10 h-10 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-400 block">Gold</span>
+                        <div class="flex items-center gap-1"><span id="res-gold" class="font-bold text-sm text-white">0</span><span id="res-gold-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+                <div class="h-px w-full bg-yellow-900/30 my-1"></div>
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/YOUR_GEMS_ICON.png" alt="Gems" class="w-6 h-6 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-400 block">Gems</span>
+                        <div class="flex items-center gap-1"><span id="res-gems" class="font-bold text-sm text-white">0</span><span id="res-gems-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="parchment-card p-2 flex flex-col gap-1">
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/7yht9Bv.png" alt="Food" class="w-10 h-10 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Food</span>
+                        <div class="flex items-center gap-1"><span id="res-food" class="font-bold text-sm">0</span><span id="res-food-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+                <div class="h-px w-full bg-yellow-900/30 my-1"></div>
+                <div class="flex items-center gap-2">
+                    <img src="https://i.imgur.com/YOUR_SPICES_ICON.png" alt="Spices" class="w-6 h-6 object-contain">
+                    <div class="flex-1">
+                        <span class="text-[10px] uppercase text-gray-500 block">Spices</span>
+                        <div class="flex items-center gap-1"><span id="res-spices" class="font-bold text-sm">0</span><span id="res-spices-rate" class="text-[10px] font-bold"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ribbon-goods" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 hidden">
+            <div class="parchment-card p-4 flex items-center gap-4">
+                <img src="https://i.imgur.com/YOUR_FURNITURE_ICON.png" alt="Furniture" class="w-14 h-14 object-contain drop-shadow-md">
+                <div>
+                    <span class="text-xs uppercase text-gray-400 block tracking-widest font-bold">Furniture</span>
+                    <div class="flex items-center gap-2">
+                        <span id="res-furniture" class="font-bold text-2xl text-yellow-600">0</span>
+                        <span id="res-furniture-rate" class="text-sm font-bold"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="parchment-card p-4 flex items-center gap-4">
+                <img src="https://i.imgur.com/YOUR_JEWELRY_ICON.png" alt="Jewelry" class="w-14 h-14 object-contain drop-shadow-md">
+                <div>
+                    <span class="text-xs uppercase text-gray-400 block tracking-widest font-bold">Jewelry</span>
+                    <div class="flex items-center gap-2">
+                        <span id="res-jewelry" class="font-bold text-2xl text-yellow-600">0</span>
+                        <span id="res-jewelry-rate" class="text-sm font-bold"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="parchment-card p-4 flex items-center gap-4">
+                <img src="https://i.imgur.com/YOUR_WEAPONRY_ICON.png" alt="Weaponry" class="w-14 h-14 object-contain drop-shadow-md">
+                <div>
+                    <span class="text-xs uppercase text-gray-400 block tracking-widest font-bold">Weaponry</span>
+                    <div class="flex items-center gap-2">
+                        <span id="res-weaponry" class="font-bold text-2xl text-yellow-600">0</span>
+                        <span id="res-weaponry-rate" class="text-sm font-bold"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-estate" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 space-y-6">
+                <h2 class="medieval-font text-2xl mb-4 text-yellow-700">Worker Assignments</h2>
+                <div id="worker-tasks" class="space-y-4 max-h-[800px] overflow-y-auto pr-2 pb-10"></div>
+                <div class="parchment-card p-4 mt-8">
+                    <h3 class="medieval-font text-lg text-yellow-600 mb-2">Town Growth</h3>
+                    <div id="attraction-msg" class="text-sm font-semibold text-green-500">Checking for new arrivals...</div>
+                </div>
+            </div>
+            <div class="lg:col-span-2">
+                <h2 class="medieval-font text-2xl mb-4 text-yellow-700">Estate Infrastructure</h2>
+                <div id="buildings-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[1000px] overflow-y-auto pr-2 pb-10"></div>
+            </div>
+        </div>
+
+        <div id="view-market" class="hidden space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                <h2 class="medieval-font text-3xl text-yellow-700">Mercantile Exchange</h2>
+                <div class="flex gap-2">
+                    <button id="tab-exchange" class="btn-medieval px-4 py-2 rounded text-sm font-bold text-yellow-500 border-yellow-600 market-tab-btn" data-tab="exchange">Exchange</button>
+                    <button id="tab-orders" class="btn-medieval px-4 py-2 rounded text-sm font-bold text-gray-400 market-tab-btn" data-tab="orders">Trade Orders</button>
+                    <button class="btn-medieval px-6 py-2 rounded text-sm font-bold text-gray-300 ml-4 nav-btn" data-target="estate">Return</button>
+                </div>
+            </div>
+            
+            <div id="market-exchange-view" class="parchment-card p-6 overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-yellow-900/30 text-gray-500 uppercase text-xs">
+                            <th class="pb-4 px-4">Commodity</th>
+                            <th class="pb-4 px-4 text-center">Trend</th>
+                            <th class="pb-4 px-4">Buy Price</th>
+                            <th class="pb-4 px-4">Sell Price</th>
+                            <th class="pb-4 px-4 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="market-table-body" class="divide-y divide-yellow-900/10">
+                        </tbody>
+                </table>
+                <div class="mt-6 text-xs text-gray-500 italic text-center">
+                    Prices fluctuate every 15 seconds based on regional trade winds.
+                </div>
+            </div>
+
+            <div id="market-orders-view" class="hidden space-y-6">
+                <div class="parchment-card p-6">
+                    <h3 class="medieval-font text-xl text-yellow-600 mb-2">Negotiate New Order</h3>
+                    <p class="text-xs text-gray-400 mb-6">Propose a perpetual trade agreement with an independent territory. Negotiate carefully; export sales fetch a premium, while imported goods require aggressive haggling based on your wealth and influence.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
+                        <div>
+                            <label class="block text-[10px] text-gray-400 uppercase mb-1">Target Territory</label>
+                            <select id="order-territory" class="w-full bg-black/40 border border-yellow-900/40 p-2 rounded text-white text-sm focus:outline-none focus:border-yellow-600"></select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 uppercase mb-1">Order Type</label>
+                            <select id="order-type" class="w-full bg-black/40 border border-yellow-900/40 p-2 rounded text-white text-sm focus:outline-none focus:border-yellow-600">
+                                <option value="import">Import (Buy)</option>
+                                <option value="export">Export (Sell)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 uppercase mb-1">Resource</label>
+                            <select id="order-resource" class="w-full bg-black/40 border border-yellow-900/40 p-2 rounded text-white text-sm focus:outline-none focus:border-yellow-600"></select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 uppercase mb-1">Amount / Tick</label>
+                            <input type="number" id="order-amount" value="10" min="1" class="w-full bg-black/40 border border-yellow-900/40 p-2 rounded text-white text-sm focus:outline-none focus:border-yellow-600">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 uppercase mb-1">Offer Price (Gold/ea)</label>
+                            <input type="number" id="order-price" value="5" min="0.1" step="0.1" class="w-full bg-black/40 border border-yellow-900/40 p-2 rounded text-white text-sm focus:outline-none focus:border-yellow-600">
+                        </div>
+                        <div>
+                            <button id="btn-submit-order" class="w-full py-2 btn-medieval rounded text-sm font-bold text-yellow-500">Negotiate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parchment-card p-6">
+                    <h3 class="medieval-font text-xl text-yellow-600 mb-4">Active Orders</h3>
+                    <div id="active-orders-list" class="space-y-2">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-territories" class="hidden space-y-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="medieval-font text-3xl text-yellow-700">Regional Territories</h2>
+                <button class="btn-medieval px-6 py-2 rounded text-sm font-bold text-gray-300 nav-btn" data-target="estate">
+                    Return to Estate
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="territories-grid">
+                </div>
+        </div>
+
+        <div id="view-specs" class="hidden space-y-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="medieval-font text-3xl text-yellow-700">Settlement Specializations</h2>
+                <button class="btn-medieval px-6 py-2 rounded text-sm font-bold text-gray-300 nav-btn" data-target="estate">
+                    Return to Estate
+                </button>
+            </div>
+            <div class="parchment-card p-6">
+                <p class="text-sm text-gray-400 mb-6">Allocate your acquired specialization points to permanently enhance your estate. Points are granted for reaching new Settlement Tiers. Unspent Points: <span id="unspent-specs" class="font-bold text-green-400">0</span></p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="specs-grid">
+                    </div>
+            </div>
+        </div>
+
+        <div id="view-garrison" class="hidden space-y-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="medieval-font text-3xl text-red-700">Estate Garrison</h2>
+                <button class="btn-medieval px-6 py-2 rounded text-sm font-bold text-gray-300 nav-btn" data-target="estate">
+                    Return to Estate
+                </button>
+            </div>
+            
+            <div class="flex flex-wrap gap-6 bg-black/40 p-4 rounded-lg border border-red-900/30 mb-6">
+                <div class="text-center">
+                    <span class="block text-xs uppercase text-gray-500">Total Attack</span>
+                    <span id="garrison-att" class="text-2xl font-bold text-red-500">0</span>
+                </div>
+                <div class="text-center">
+                    <span class="block text-xs uppercase text-gray-500">Total Defense</span>
+                    <span id="garrison-def" class="text-2xl font-bold text-blue-400">0</span>
+                </div>
+                <div class="text-center border-l border-red-900/30 pl-6 ml-2">
+                    <span class="block text-xs uppercase text-gray-500">Army Food Upkeep</span>
+                    <span id="garrison-upkeep" class="text-2xl font-bold text-yellow-600">0.0</span> <span class="text-xs text-gray-500">/ tick</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="garrison-grid">
+                </div>
+        </div>
+
+        <div id="notification-box" class="fixed bottom-4 right-4 w-72 space-y-2 pointer-events-none z-50"></div>
+    </div>
+
+    <script src="./js/data/constants.js"></script>
+	<script src="./js/state/gameState.js"></script>
+	<script src="./js/ui/notifications.js"></script>
+	<script src="./js/core/actions.js"></script>
+	<script src="./js/core/market.js"></script>
+	<script src="./js/ui/views.js"></script>
+	<script src="./js/ui/render.js"></script>
+	<script src="./js/main.js"></script>
+</body>
+</html>
