@@ -264,18 +264,18 @@ function renderMarket() {
                     <td class="py-4 px-4 text-right">
                         <div class="flex gap-4 justify-end items-center">
                             <div class="flex flex-col items-center">
-                                <input type="number" id="custom-amount-${res.id}" value="100" min="1" class="w-16 bg-black/40 border border-yellow-900/40 p-1 rounded text-white text-xs text-center focus:outline-none focus:border-yellow-600" oninput="window.gameUI.updateCustomTotal('${res.id}')">
-                                <div id="custom-total-${res.id}" class="text-[9px] text-gray-400 mt-1 whitespace-nowrap text-center"></div>
+                                <input type="number" id="custom-amount-${res.id}" value="100" min="1" class="w-16 bg-black/40 border border-yellow-900/40 p-1 rounded text-white text-xs text-center focus:outline-none focus:border-yellow-600" oninput="updateCustomTotal('${res.id}')">
+                            <div id="custom-total-${res.id}" class="text-[9px] text-gray-400 mt-1 whitespace-nowrap text-center"></div>
                             </div>
                             <div class="flex gap-1 border-r border-yellow-900/30 pr-4">
-                                <button id="btn-sell1-${res.id}" onclick="window.market.sellResource('${res.id}', 1)" class="btn-medieval px-2 py-1 rounded text-xs font-bold">Sell 1</button>
-                                <button id="btn-sell10-${res.id}" onclick="window.market.sellResource('${res.id}', 10)" class="btn-medieval px-2 py-1 rounded text-xs font-bold">10</button>
-                                <button id="btn-sellX-${res.id}" onclick="window.market.sellCustomFromInput('${res.id}')" class="btn-medieval px-2 py-1 rounded text-xs font-bold">X</button>
+                                <button id="btn-sell1-${res.id}" onclick="sellResource('${res.id}', 1)" class="btn-medieval px-2 py-1 rounded text-xs font-bold">Sell 1</button>
+                                <button id="btn-sell10-${res.id}" onclick="sellResource('${res.id}', 10)" class="btn-medieval px-2 py-1 rounded text-xs font-bold">10</button>
+                                <button id="btn-sellX-${res.id}" onclick="sellCustomFromInput('${res.id}')" class="btn-medieval px-2 py-1 rounded text-xs font-bold">X</button>
                             </div>
                             <div class="flex gap-1">
-                                <button id="btn-buy1-${res.id}" onclick="window.market.buyResource('${res.id}', 1)" class="btn-medieval px-2 py-1 rounded text-xs font-bold text-yellow-600">Buy 1</button>
-                                <button id="btn-buy10-${res.id}" onclick="window.market.buyResource('${res.id}', 10)" class="btn-medieval px-2 py-1 rounded text-xs font-bold text-yellow-600">10</button>
-                                <button id="btn-buyX-${res.id}" onclick="window.market.buyCustomFromInput('${res.id}')" class="btn-medieval px-2 py-1 rounded text-xs font-bold text-yellow-600">X</button>
+                                <button id="btn-buy1-${res.id}" onclick="buyResource('${res.id}', 1)" class="btn-medieval px-2 py-1 rounded text-xs font-bold text-yellow-600">Buy 1</button>
+                                <button id="btn-buy10-${res.id}" onclick="buyResource('${res.id}', 10)" class="btn-medieval px-2 py-1 rounded text-xs font-bold text-yellow-600">10</button>
+                                <button id="btn-buyX-${res.id}" onclick="buyCustomFromInput('${res.id}')" class="btn-medieval px-2 py-1 rounded text-xs font-bold text-yellow-600">X</button>
                             </div>
                         </div>
                     </td>

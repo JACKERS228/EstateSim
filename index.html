@@ -11,7 +11,7 @@
 
     <div id="menu-screen" class="fixed inset-0 z-50 flex items-center justify-center menu-overlay">
         <div class="text-center p-8 parchment-card max-w-lg w-full">
-            <img src="https://i.imgur.com/No4uPKr.jpeg" alt="Estate Logo" class="mx-auto w-48 h-48 object-contain mb-4">
+            <img src="assets/MainMenu.jpg" alt="Estate Logo" class="mx-auto w-48 h-48 object-contain mb-4">
             <h1 class="medieval-font text-5xl text-yellow-600 mb-2">EstateSim</h1>
             <p class="text-gray-400 italic mb-8">Establish your legacy.</p>
             
@@ -34,7 +34,7 @@
                 <h1 class="medieval-font text-4xl text-yellow-600 mb-1"><span id="display-estate-name">Estate of Lockwood</span> <span id="tier-display" class="text-2xl text-gray-400">- Homestead</span></h1>
                 <div class="max-w-xs mt-2">
                     <div class="flex justify-between text-xs text-gray-400 mb-1 uppercase font-bold tracking-wider">
-                        <span>Next Tier Progress</span>
+                        <span>Population Needed for Next Tier</span>
                         <span id="tier-progress-text">0 / 50</span>
                     </div>
                     <div class="progress-bar bg-black/60 border border-yellow-900/30 h-2">
@@ -44,7 +44,7 @@
             </div>
             <div class="flex gap-3 mt-4 md:mt-0 items-center flex-wrap justify-end">
                 <button id="btn-specs" class="btn-medieval px-3 py-2 rounded text-sm font-bold text-green-500 hidden transition-all flex items-center gap-2 nav-btn" data-target="specs">
-                    <img src="https://i.imgur.com/j1yKYCF.png" alt="Specs" class="w-5 h-5 object-contain"> Specs (<span id="btn-specs-count">0</span>)
+                    <img src="assets/Specializations.png" alt="Specs" class="w-5 h-5 object-contain"> Specs (<span id="btn-specs-count">0</span>)
                 </button>
                 <button class="btn-medieval px-3 py-2 rounded text-sm font-bold text-blue-400 flex items-center gap-2 nav-btn" data-target="territories">
                     🗺️ Territories
@@ -53,7 +53,7 @@
                     ⚔️ Garrison
                 </button>
                 <button class="btn-medieval px-3 py-2 rounded text-sm font-bold text-yellow-500 flex items-center gap-2 nav-btn" data-target="market">
-                    <img src="https://i.imgur.com/VoqhdTA.png" alt="Market" class="w-5 h-5 object-contain"> Market
+                    <img src="assets/Market.png" alt="Market" class="w-5 h-5 object-contain"> Market
                 </button>
                 <div class="flex gap-4 bg-black/40 p-2 rounded-lg border border-yellow-900/20 ml-2">
                     <div class="text-center">
@@ -78,7 +78,7 @@
         <div id="ribbon-raw" class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             <div class="parchment-card p-2 flex flex-col gap-1">
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/Qh5Aevn.png" alt="Wood" class="w-10 h-10 object-contain">
+                    <img src="assets/Wood.png" alt="Wood" class="w-10 h-10 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Wood</span>
                         <div class="flex items-center gap-1"><span id="res-wood" class="font-bold text-sm">0</span><span id="res-wood-rate" class="text-[10px] font-bold"></span></div>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="h-px w-full bg-yellow-900/30 my-1"></div>
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/YOUR_PLANKS_ICON.png" alt="Planks" class="w-6 h-6 object-contain">
+                    <img src="assets/Planks.png" alt="Planks" class="w-6 h-6 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Planks</span>
                         <div class="flex items-center gap-1"><span id="res-planks" class="font-bold text-sm">0</span><span id="res-planks-rate" class="text-[10px] font-bold"></span></div>
@@ -95,7 +95,7 @@
             </div>
             <div class="parchment-card p-2 flex flex-col gap-1">
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/52EtS1N.png" alt="Stone" class="w-10 h-10 object-contain">
+                    <img src="assets/Stone.png" alt="Stone" class="w-10 h-10 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Stone</span>
                         <div class="flex items-center gap-1"><span id="res-stone" class="font-bold text-sm">0</span><span id="res-stone-rate" class="text-[10px] font-bold"></span></div>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="h-px w-full bg-yellow-900/30 my-1"></div>
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/YOUR_POLISHED_STONE_ICON.png" alt="Polished Stone" class="w-6 h-6 object-contain">
+                    <img src="assets/PolishedStone.png" alt="Polished Stone" class="w-6 h-6 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Cut Stone</span>
                         <div class="flex items-center gap-1"><span id="res-polished_stone" class="font-bold text-sm">0</span><span id="res-polished_stone-rate" class="text-[10px] font-bold"></span></div>
@@ -112,7 +112,7 @@
             </div>
             <div class="parchment-card p-2 flex flex-col gap-1">
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/HpxMHvI.png" alt="Iron" class="w-10 h-10 object-contain">
+                    <img src="assets/Iron.png" alt="Iron" class="w-10 h-10 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Iron</span>
                         <div class="flex items-center gap-1"><span id="res-iron" class="font-bold text-sm">0</span><span id="res-iron-rate" class="text-[10px] font-bold"></span></div>
@@ -120,7 +120,7 @@
                 </div>
                 <div class="h-px w-full bg-yellow-900/30 my-1"></div>
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/YOUR_NAILS_ICON.png" alt="Nails" class="w-6 h-6 object-contain">
+                    <img src="assets/Nails.png" alt="Nails" class="w-6 h-6 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Nails</span>
                         <div class="flex items-center gap-1"><span id="res-nails" class="font-bold text-sm">0</span><span id="res-nails-rate" class="text-[10px] font-bold"></span></div>
@@ -129,7 +129,7 @@
             </div>
             <div class="parchment-card p-2 flex flex-col gap-1 text-yellow-500">
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/YZqvQ3P.png" alt="Gold" class="w-10 h-10 object-contain">
+                    <img src="assets/Gold.png" alt="Gold" class="w-10 h-10 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-400 block">Gold</span>
                         <div class="flex items-center gap-1"><span id="res-gold" class="font-bold text-sm text-white">0</span><span id="res-gold-rate" class="text-[10px] font-bold"></span></div>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="h-px w-full bg-yellow-900/30 my-1"></div>
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/YOUR_GEMS_ICON.png" alt="Gems" class="w-6 h-6 object-contain">
+                    <img src="assets/Gems.png" alt="Gems" class="w-6 h-6 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-400 block">Gems</span>
                         <div class="flex items-center gap-1"><span id="res-gems" class="font-bold text-sm text-white">0</span><span id="res-gems-rate" class="text-[10px] font-bold"></span></div>
@@ -146,7 +146,7 @@
             </div>
             <div class="parchment-card p-2 flex flex-col gap-1">
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/7yht9Bv.png" alt="Food" class="w-10 h-10 object-contain">
+                    <img src="assets/Food.png" alt="Food" class="w-10 h-10 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Food</span>
                         <div class="flex items-center gap-1"><span id="res-food" class="font-bold text-sm">0</span><span id="res-food-rate" class="text-[10px] font-bold"></span></div>
@@ -154,7 +154,7 @@
                 </div>
                 <div class="h-px w-full bg-yellow-900/30 my-1"></div>
                 <div class="flex items-center gap-2">
-                    <img src="https://i.imgur.com/YOUR_SPICES_ICON.png" alt="Spices" class="w-6 h-6 object-contain">
+                    <img src="assets/Spices.png" alt="Spices" class="w-6 h-6 object-contain">
                     <div class="flex-1">
                         <span class="text-[10px] uppercase text-gray-500 block">Spices</span>
                         <div class="flex items-center gap-1"><span id="res-spices" class="font-bold text-sm">0</span><span id="res-spices-rate" class="text-[10px] font-bold"></span></div>
@@ -165,7 +165,7 @@
 
         <div id="ribbon-goods" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 hidden">
             <div class="parchment-card p-4 flex items-center gap-4">
-                <img src="https://i.imgur.com/YOUR_FURNITURE_ICON.png" alt="Furniture" class="w-14 h-14 object-contain drop-shadow-md">
+                <img src="assets/Furniture.png" alt="Furniture" class="w-14 h-14 object-contain drop-shadow-md">
                 <div>
                     <span class="text-xs uppercase text-gray-400 block tracking-widest font-bold">Furniture</span>
                     <div class="flex items-center gap-2">
@@ -175,7 +175,7 @@
                 </div>
             </div>
             <div class="parchment-card p-4 flex items-center gap-4">
-                <img src="https://i.imgur.com/YOUR_JEWELRY_ICON.png" alt="Jewelry" class="w-14 h-14 object-contain drop-shadow-md">
+                <img src="assets/Jewelry.png" alt="Jewelry" class="w-14 h-14 object-contain drop-shadow-md">
                 <div>
                     <span class="text-xs uppercase text-gray-400 block tracking-widest font-bold">Jewelry</span>
                     <div class="flex items-center gap-2">
@@ -185,7 +185,7 @@
                 </div>
             </div>
             <div class="parchment-card p-4 flex items-center gap-4">
-                <img src="https://i.imgur.com/YOUR_WEAPONRY_ICON.png" alt="Weaponry" class="w-14 h-14 object-contain drop-shadow-md">
+                <img src="assets/Arms.png" alt="Weaponry" class="w-14 h-14 object-contain drop-shadow-md">
                 <div>
                     <span class="text-xs uppercase text-gray-400 block tracking-widest font-bold">Weaponry</span>
                     <div class="flex items-center gap-2">

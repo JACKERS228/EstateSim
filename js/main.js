@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bind static UI interactions
     document.getElementById('btn-start-game').addEventListener('click', startGame);
     document.getElementById('btn-toggle-ribbon').addEventListener('click', toggleRibbon);
-    document.getElementById('btn-submit-order').addEventListener('click', actions.submitOrder);
+    document.getElementById('btn-submit-order').addEventListener('click', submitOrder);
 
     // Bind dynamic Navigation Buttons
     document.querySelectorAll('.nav-btn').forEach(btn => {
