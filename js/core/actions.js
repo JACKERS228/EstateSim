@@ -159,3 +159,130 @@ function recruitUnit(unitId) {
     notify(`Recruited a regiment of ${unit.name}!`, "#fbbf24");
     render();
 }
+
+function exportSaveToFile() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "estatesim_save_" + Date.now() + ".json");
+    document.body.appendChild(downloadAnchorNode); // Required for Firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+    if (typeof notify === 'function') notify("Game saved to file.", "#4ade80");
+}
+
+function importSaveFromFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const loadedState = JSON.parse(e.target.result);
+            if (loadedState && loadedState.resources && loadedState.population) {
+                // Soft merge state objects to avoid breaking changes on future updates
+                for (let key in loadedState) {
+                    if (typeof loadedState[key] === 'object' && !Array.isArray(loadedState[key]) && loadedState[key] !== null) {
+                        state[key] = { ...state[key], ...loadedState[key] };
+                    } else {
+                        state[key] = loadedState[key];
+                    }
+                }
+                if (state.scene !== 'menu') {
+                    document.getElementById('menu-screen')?.classList.add('hidden');
+                    document.getElementById('game-container')?.classList.remove('hidden');
+                }
+                
+                const estateNameInput = document.getElementById('estate-name-input');
+                if (estateNameInput) estateNameInput.value = state.estateName;
+                
+                const displayEstateName = document.getElementById('display-estate-name');
+                if (displayEstateName) displayEstateName.textContent = state.estateName;
+                
+                switchScene(state.scene);
+                render();
+                if (typeof notify === 'function') notify("Game loaded successfully.", "#4ade80");
+            } else {
+                if (typeof notify === 'function') notify("Invalid save file.", "#ef4444");
+            }
+        } catch (error) {
+            if (typeof notify === 'function') notify("Error parsing save file.", "#ef4444");
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = ''; // Clear the input field for future uploads
+}
+
+function saveGameToSlot(slot) {
+    if (!slot) return;
+    const saveData = {
+        ...state,
+        saveDate: new Date().toISOString()
+    };
+    localStorage.setItem(`estatesim_save_${slot}`, JSON.stringify(saveData));
+    notify(`Game saved to slot ${slot}.`, "#4ade80");
+    if (typeof renderSaveLoadModal === 'function') {
+        renderSaveLoadModal();
+    }
+}
+
+function loadGameFromSlot(slot) {
+    if (!slot) return;
+    const savedData = localStorage.getItem(`estatesim_save_${slot}`);
+    if (!savedData) {
+        return notify(`Slot ${slot} is empty.`, "#ef4444");
+    }
+
+    try {
+        const loadedState = JSON.parse(savedData);
+        if (loadedState && loadedState.resources && loadedState.population) {
+            // Replicate the soft merge from the original file-based load function
+            for (let key in loadedState) {
+                if (Object.prototype.hasOwnProperty.call(loadedState, key)) {
+                    if (typeof loadedState[key] === 'object' && !Array.isArray(loadedState[key]) && loadedState[key] !== null) {
+                        state[key] = { ...state[key], ...loadedState[key] };
+                    } else {
+                        state[key] = loadedState[key];
+                    }
+                }
+            }
+
+            if (state.scene !== 'menu') {
+                document.getElementById('menu-screen')?.classList.add('hidden');
+                document.getElementById('game-container')?.classList.remove('hidden');
+            }
+            
+            const estateNameInput = document.getElementById('estate-name-input');
+            if (estateNameInput) estateNameInput.value = state.estateName;
+            
+            const displayEstateName = document.getElementById('display-estate-name');
+            if (displayEstateName) displayEstateName.textContent = state.estateName;
+            
+            if (typeof closeSaveLoadModal === 'function') {
+                closeSaveLoadModal();
+            }
+            switchScene(state.scene);
+            render();
+            notify(`Game loaded from slot ${slot}.`, "#4ade80");
+        } else {
+            notify("Invalid save data in slot.", "#ef4444");
+        }
+    } catch (error) {
+        console.error("Error loading from slot:", error);
+        notify("Error parsing save data from slot.", "#ef4444");
+    }
+}
+
+function deleteSaveSlot(slot) {
+    if (!slot) return;
+    const key = `estatesim_save_${slot}`;
+    if (localStorage.getItem(key)) {
+        localStorage.removeItem(key);
+        notify(`Save slot ${slot} deleted.`, "#a3a3a3");
+        if (typeof renderSaveLoadModal === 'function') {
+            renderSaveLoadModal();
+        }
+    } else {
+        notify(`Slot ${slot} is already empty.`, "#ef4444");
+    }
+}

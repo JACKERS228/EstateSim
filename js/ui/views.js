@@ -17,24 +17,28 @@ function renderGarrison() {
         const affordable = state.resources.weaponry >= data.cost.weaponry && idle >= data.workers;
 
         const card = document.createElement('div');
-        card.className = `parchment-card p-4 flex flex-col justify-between`;
+        card.className = `parchment-card p-4 flex flex-col justify-between relative overflow-hidden min-h-[160px]`;
+        card.style.backgroundImage = `linear-gradient(to bottom, rgba(42,36,30,0.95) 0%, rgba(42,36,30,0.3) 50%, rgba(42,36,30,0.95) 100%), url('${data.icon}')`;
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
+
         card.innerHTML = `
-            <div class="mb-4">
+            <div class="mb-4 relative z-10">
                 <div class="flex justify-between items-start mb-2">
-                    <span class="text-3xl">${data.icon}</span>
-                    <span class="text-xs uppercase px-2 py-1 bg-black/30 rounded text-red-500 font-bold">Count: ${count}</span>
+                    <div class="w-16 h-4"></div>
+                    <span class="text-xs uppercase px-2 py-1 bg-black/60 shadow-md border border-red-900/50 rounded text-red-500 font-bold">Count: ${count}</span>
                 </div>
-                <h3 class="medieval-font text-lg text-white mb-1">${data.name}</h3>
-                <p class="text-xs text-gray-400 mb-2">${data.desc}</p>
-                <div class="flex gap-4 text-xs font-bold text-gray-300">
+                <h3 class="medieval-font text-lg text-white mb-1 drop-shadow-md">${data.name}</h3>
+                <p class="text-xs text-gray-200 drop-shadow-md font-semibold mb-2">${data.desc}</p>
+                <div class="flex gap-4 text-xs font-bold text-gray-300 drop-shadow-md">
                     <span>⚔️ ATT: ${data.att}</span>
                     <span>🛡️ DEF: ${data.def}</span>
                 </div>
             </div>
-            <div>
+            <div class="relative z-10">
                 <div class="flex justify-between items-center text-xs mb-3 bg-black/50 p-2 rounded border border-yellow-900/30">
-                    <span class="text-gray-400 font-bold mr-2">COST:</span>
-                    <div class="flex gap-2 font-bold">
+                    <span class="text-gray-400 font-bold drop-shadow-md mr-2">COST:</span>
+                    <div class="flex gap-2 drop-shadow-md font-bold">
                         <span class="${state.resources.weaponry >= data.cost.weaponry ? 'text-gray-300' : 'text-red-400'}">${data.cost.weaponry} WEA</span>
                         <span class="${idle >= data.workers ? 'text-gray-300' : 'text-red-400'}">${data.workers} POP</span>
                     </div>
@@ -355,5 +359,59 @@ function renderMarket() {
                 list.appendChild(div);
             });
         }
+    }
+}
+
+function renderSaveLoadModal() {
+    const container = document.getElementById('save-slots-container');
+    if (!container) return;
+    container.innerHTML = '';
+    const totalSlots = 3;
+
+    for (let i = 1; i <= totalSlots; i++) {
+        const slotKey = `estatesim_save_${i}`;
+        const savedData = localStorage.getItem(slotKey);
+        const slotDiv = document.createElement('div');
+        slotDiv.className = 'parchment-card p-3 flex items-center justify-between gap-4 bg-black/20';
+
+        if (savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                const saveDate = new Date(data.saveDate || Date.now());
+                slotDiv.innerHTML = `
+                    <div class="flex-grow">
+                        <p class="font-bold text-white">Slot ${i}: <span class="text-yellow-500">${data.estateName || 'Unnamed Estate'}</span></p>
+                        <p class="text-xs text-gray-400">Saved: ${saveDate.toLocaleString()}</p>
+                        <p class="text-xs text-gray-400">Population: ${data.population.total.toLocaleString()}</p>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-2">
+                        <button data-action="save" data-slot="${i}" class="btn-medieval px-4 py-1 rounded text-xs font-bold text-yellow-500">Overwrite</button>
+                        <button data-action="load" data-slot="${i}" class="btn-medieval px-4 py-1 rounded text-xs font-bold text-green-500">Load</button>
+                        <button data-action="delete" data-slot="${i}" class="btn-medieval px-4 py-1 rounded text-xs font-bold text-red-500">Delete</button>
+                    </div>
+                `;
+            } catch (e) {
+                // Corrupted data
+                slotDiv.innerHTML = `
+                    <div class="flex-grow">
+                        <p class="font-bold text-red-500">Slot ${i}: Corrupted Data</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button data-action="delete" data-slot="${i}" class="btn-medieval px-4 py-1 rounded text-xs font-bold text-red-500">Delete</button>
+                    </div>
+                `;
+            }
+        } else {
+            // Empty slot
+            slotDiv.innerHTML = `
+                <div class="flex-grow">
+                    <p class="font-bold text-gray-500">Slot ${i}: Empty</p>
+                </div>
+                <div class="flex gap-2">
+                    <button data-action="save" data-slot="${i}" class="btn-medieval px-4 py-2 rounded text-sm font-bold text-yellow-500">Save Game</button>
+                </div>
+            `;
+        }
+        container.appendChild(slotDiv);
     }
 }

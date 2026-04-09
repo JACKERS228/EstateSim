@@ -32,6 +32,16 @@ function startGame() {
     render();
 }
 
+function openSaveLoadModal() {
+    renderSaveLoadModal();
+    document.getElementById('save-load-modal').classList.remove('hidden');
+}
+
+function closeSaveLoadModal() {
+    document.getElementById('save-load-modal').classList.add('hidden');
+}
+window.closeSaveLoadModal = closeSaveLoadModal; // Make globally accessible for actions.js
+
 function switchScene(scene) {
     if (scene === 'market' && !state.buildings.market.built) {
         notify("You must build a Market Square first.", "#ef4444");
@@ -246,6 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-toggle-ribbon').addEventListener('click', toggleRibbon);
     document.getElementById('btn-submit-order').addEventListener('click', submitOrder);
 
+    // Save/Load Modal Bindings
+    document.getElementById('btn-open-save-modal').addEventListener('click', openSaveLoadModal);
+    document.getElementById('btn-close-save-modal').addEventListener('click', closeSaveLoadModal);
+    document.getElementById('btn-export-save').addEventListener('click', exportSaveToFile);
+    document.getElementById('input-import-save').addEventListener('change', importSaveFromFile);
+
+
     // Bind dynamic Navigation Buttons
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -259,6 +276,26 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMarketTab(e.currentTarget.dataset.tab);
         });
     });
+
+    // Event delegation for save slots
+    const saveSlotsContainer = document.getElementById('save-slots-container');
+    if (saveSlotsContainer) {
+        saveSlotsContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('button[data-action]');
+            if (!button) return;
+
+            const action = button.dataset.action;
+            const slot = button.dataset.slot;
+
+            if (action === 'save') {
+                saveGameToSlot(slot);
+            } else if (action === 'load') {
+                loadGameFromSlot(slot);
+            } else if (action === 'delete') {
+                deleteSaveSlot(slot);
+            }
+        });
+    }
 
     // Initiate Game Engine Loop
     setInterval(gameTick, 1000);

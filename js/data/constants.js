@@ -29,25 +29,25 @@ const SPEC_DATA = [
 ];
 
 const BUILDING_DATA = {
-    housing: { name: "Peasant Cottages", icon: "https://i.imgur.com/YOUR_HOUSING_ICON.png", desc: "Increases max population exponentially.", baseCost: { wood: 30, stone: 10 }, costMult: 1.6, benefit: (lvl) => Math.floor(10 * Math.pow(1.8, lvl) - 10) },
-    farm: { name: "Village Farm", icon: "https://i.imgur.com/YOUR_FARM_ICON.png", desc: "Improves food yield.", baseCost: { wood: 20, stone: 5 }, costMult: 1.4, benefit: (lvl) => 1 + (lvl * 0.5) },
-    woodcutter: { name: "Woodcutter's Hut", icon: "https://i.imgur.com/YOUR_WOODCUTTER_ICON.png", desc: "Enables timber harvesting.", baseCost: { wood: 10, stone: 5 }, costMult: 1.5, benefit: (lvl) => 1 + (lvl * 0.4) },
-    quarry: { name: "Stone Quarry", icon: "https://i.imgur.com/YOUR_QUARRY_ICON.png", desc: "Extracts construction stone.", baseCost: { wood: 40, stone: 20 }, costMult: 1.7, benefit: (lvl) => 0.8 + (lvl * 0.3) },
-    mine: { name: "Iron Mine", icon: "https://i.imgur.com/YOUR_MINE_ICON.png", desc: "Deep iron ore excavation.", baseCost: { wood: 60, stone: 60, gold: 20 }, costMult: 1.8, benefit: (lvl) => 0.5 + (lvl * 0.2) },
-    market: { name: "Market Square", icon: "https://i.imgur.com/YOUR_MARKET_BLD_ICON.png", desc: "Unlocks trade and tax revenue.", baseCost: { wood: 50, stone: 30, iron: 10 }, costMult: 2.0, benefit: (lvl) => 0.5 + (lvl * 0.5) },
+    housing: { name: "Peasant Cottages", icon: "assets/buildings/PeasantCottage.png", desc: "Increases max population exponentially.", baseCost: { wood: 30, stone: 10 }, costMult: 1.6, benefit: (lvl) => Math.floor(10 * Math.pow(1.8, lvl) - 10) },
+    farm: { name: "Village Farm", icon: "assets/buildings/Farm.png", desc: "Improves food yield.", baseCost: { wood: 20, stone: 5 }, costMult: 1.4, benefit: (lvl) => 1 + (lvl * 0.5) },
+    woodcutter: { name: "Woodcutter's Hut", icon: "assets/buildings/Woodcutter.png", desc: "Enables timber harvesting.", baseCost: { wood: 10, stone: 5 }, costMult: 1.5, benefit: (lvl) => 1 + (lvl * 0.4) },
+    quarry: { name: "Stone Quarry", icon: "assets/buildings/Quarry.png", desc: "Extracts construction stone.", baseCost: { wood: 40, stone: 20 }, costMult: 1.7, benefit: (lvl) => 0.8 + (lvl * 0.3) },
+    mine: { name: "Iron Mine", icon: "assets/buildings/IronMine.png", desc: "Deep iron ore excavation.", baseCost: { wood: 60, stone: 60, gold: 20 }, costMult: 1.8, benefit: (lvl) => 0.5 + (lvl * 0.2) },
+    market: { name: "Market Square", icon: "assets/buildings/Market.png", desc: "Unlocks trade and tax revenue.", baseCost: { wood: 50, stone: 30, iron: 10 }, costMult: 2.0, benefit: (lvl) => 0.5 + (lvl * 0.5) },
     
-    sawmill: { name: "Lumber Mill", icon: "https://i.imgur.com/YOUR_SAWMILL_ICON.png", desc: "Refines Wood into Planks.", baseCost: { wood: 100, stone: 50 }, costMult: 1.6, benefit: (lvl) => lvl },
-    masonry: { name: "Stonemason", icon: "https://i.imgur.com/YOUR_STONEMASON_ICON.png", desc: "Polishes rough stone.", baseCost: { wood: 50, stone: 100 }, costMult: 1.6, benefit: (lvl) => lvl },
-    forge: { name: "Blacksmith Forge", icon: "https://i.imgur.com/YOUR_FORGE_ICON.png", desc: "Smiths iron into nails.", baseCost: { stone: 150, iron: 50 }, costMult: 1.6, benefit: (lvl) => lvl },
-    goldsmith: { name: "Goldsmith", icon: "https://i.imgur.com/YOUR_GOLDSMITH_ICON.png", desc: "Cuts gold into gems.", baseCost: { stone: 100, gold: 100 }, costMult: 1.8, benefit: (lvl) => lvl },
-    apothecary: { name: "Spice Mill", icon: "https://i.imgur.com/YOUR_SPICEMILL_ICON.png", desc: "Grinds food into spices.", baseCost: { wood: 100, stone: 100 }, costMult: 1.6, benefit: (lvl) => lvl },
-    carpenter: { name: "Carpenter's Guild", icon: "https://i.imgur.com/YOUR_CARPENTER_ICON.png", desc: "Crafts elegant furniture.", baseCost: { wood: 200, planks: 50, nails: 50 }, costMult: 1.8, benefit: (lvl) => lvl },
-    jeweler: { name: "Jeweler's Shop", icon: "https://i.imgur.com/YOUR_JEWELER_ICON.png", desc: "Crafts valuable jewelry.", baseCost: { stone: 200, polished_stone: 50, gems: 50 }, costMult: 2.0, benefit: (lvl) => lvl },
-    armory: { name: "Armory", icon: "https://i.imgur.com/YOUR_ARMORY_ICON.png", desc: "Forges heavy weaponry.", baseCost: { wood: 150, iron: 150, nails: 50, polished_stone: 50 }, costMult: 2.0, benefit: (lvl) => lvl }
+    sawmill: { name: "Lumber Mill", icon: "assets/buildings/Sawmill.png", desc: "Refines Wood into Planks.", baseCost: { wood: 100, stone: 50 }, costMult: 1.6, benefit: (lvl) => lvl },
+    masonry: { name: "Stonemason", icon: "assets/buildings/StoneMason.png", desc: "Polishes rough stone.", baseCost: { wood: 50, stone: 100 }, costMult: 1.6, benefit: (lvl) => lvl },
+    forge: { name: "Blacksmith Forge", icon: "assets/buildings/Smith.png", desc: "Smiths iron into nails.", baseCost: { stone: 150, iron: 50 }, costMult: 1.6, benefit: (lvl) => lvl },
+    goldsmith: { name: "Goldsmith", icon: "assets/buildings/Goldsmith.png", desc: "Cuts gold into gems.", baseCost: { stone: 100, gold: 100 }, costMult: 1.8, benefit: (lvl) => lvl },
+    apothecary: { name: "Trading Post", icon: "assets/buildings/SpiceCaravan.png", desc: "Trading post for exotic spices.", baseCost: { wood: 100, stone: 100 }, costMult: 1.6, benefit: (lvl) => lvl },
+    carpenter: { name: "Carpenter's Guild", icon: "assets/buildings/Carpenter.png", desc: "Crafts elegant furniture.", baseCost: { wood: 200, planks: 50, nails: 50 }, costMult: 1.8, benefit: (lvl) => lvl },
+    jeweler: { name: "Jeweler's Shop", icon: "assets/buildings/Jeweler.png", desc: "Crafts valuable jewelry.", baseCost: { stone: 200, polished_stone: 50, gems: 50 }, costMult: 2.0, benefit: (lvl) => lvl },
+    armory: { name: "Armory", icon: "assets/buildings/Armory.png", desc: "Forges heavy weaponry.", baseCost: { wood: 150, iron: 150, nails: 50, polished_stone: 50 }, costMult: 2.0, benefit: (lvl) => lvl }
 };
 
 const TASK_DATA = {
-    farming: { name: "Farming", res: "food", bld: "farm", icon: "https://i.imgur.com/YOUR_TASK_FARM_ICON.png" },
+    farming: { name: "Farming", res: "food", bld: "farm", icon: "assets/resources/Food.png" },
     woodcutting: { name: "Woodcutting", res: "wood", bld: "woodcutter", icon: "https://i.imgur.com/YOUR_TASK_WOOD_ICON.png" },
     mining_stone: { name: "Stone Mining", res: "stone", bld: "quarry", icon: "https://i.imgur.com/YOUR_TASK_STONE_ICON.png" },
     mining_iron: { name: "Iron Mining", res: "iron", bld: "mine", icon: "https://i.imgur.com/YOUR_TASK_IRON_ICON.png" },
@@ -64,11 +64,11 @@ const TASK_DATA = {
 };
 
 const UNIT_DATA = {
-    pikemen: { name: "Pikemen", att: 2, def: 4, workers: 3, cost: { weaponry: 500 }, icon: "🛡️", desc: "Disciplined infantry holding the line." },
-    archers: { name: "Archers", att: 3, def: 1, workers: 2, cost: { weaponry: 500 }, icon: "🏹", desc: "Long-range volley specialists." },
-    knights: { name: "Knights", att: 5, def: 5, workers: 5, cost: { weaponry: 500 }, icon: "⚔️", desc: "Elite armored shock cavalry." },
-    siege_towers: { name: "Siege Towers", att: 2, def: 6, workers: 4, cost: { weaponry: 500 }, icon: "🗼", desc: "Mobile fortresses and scaling platforms." },
-    cannons: { name: "Cannons", att: 5, def: 1, workers: 3, cost: { weaponry: 500 }, icon: "💣", desc: "Devastating but vulnerable artillery." }
+    pikemen: { name: "Pikemen", att: 2, def: 4, workers: 3, cost: { weaponry: 500 }, icon: "assets/units/Pikeman.png", desc: "Disciplined infantry holding the line." },
+    archers: { name: "Archers", att: 3, def: 1, workers: 2, cost: { weaponry: 500 }, icon: "assets/units/Archer.png", desc: "Long-range volley specialists." },
+    knights: { name: "Knights", att: 5, def: 5, workers: 5, cost: { weaponry: 500 }, icon: "assets/units/Knight.png", desc: "Elite armored shock cavalry." },
+    siege_towers: { name: "Siege Towers", att: 2, def: 6, workers: 4, cost: { weaponry: 500 }, icon: "assets/units/SiegeTower.png", desc: "Mobile fortresses and scaling platforms." },
+    cannons: { name: "Cannons", att: 5, def: 1, workers: 3, cost: { weaponry: 500 }, icon: "assets/units/Cannon.png", desc: "Devastating but vulnerable artillery." }
 };
 
 const MARKET_BASES = {
